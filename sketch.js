@@ -46,10 +46,15 @@ function setup() {
   formiga.addAnimation("formigaAnimation", formigaAnimation);
   morcego = createSprite(600, 230);
   morcego.addAnimation("morcegoVoando", morcegoAnimation);
+  
 }  
 
 function draw() {
   background("lightgrey"); 
+  grama.velocityX = -3.5;
+  if(grama.x<-100){
+    grama.x = 710;
+  }
   sapo.collide(gramaInvisivel);
   sapo.velocityY = 0.5;
   if(keyDown("space") && sapo.y >= 390){
