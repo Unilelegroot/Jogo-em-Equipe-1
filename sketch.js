@@ -7,6 +7,7 @@ var cinos, cinosAnimation;
 var nyjag, nyjagAnimation;
 var formiga, formigaAnimation;
 var morcego, morcegoAnimation;
+var gramaInvisivel;
 
 
 function preload(){
@@ -27,26 +28,34 @@ function setup() {
   ceu.addImage(ceuImage);
   grama = createSprite(710, 250);
   grama.addImage(gramaImage);
+  gramaInvisivel = createSprite(710, 450, 1420, 40);
+  gramaInvisivel.visible = false;
   sapo = createSprite(100, 400);
   sapo.addAnimation("sapoAnimation", sapoAnimation);
-  aranha = createSprite(400, 200);
+  sapo.scale = 2;
+  aranha = createSprite(700, 220);
   aranha.addAnimation("aranhaAnimation", aranhaAnimation);
   cobra = createSprite(600, 400);
   cobra.addAnimation("cobraAnimation", cobraAnimation);
+  cobra.scale = 2;
   cinos = createSprite(900,100);
   cinos.addAnimation("cinosAnimation", cinosAnimation);
   nyjag = createSprite(1200,100);
   nyjag.addAnimation("nyjagAnimation",nyjagAnimation);
-  formiga = createSprite(800, 100);
+  formiga = createSprite(800, 400);
   formiga.addAnimation("formigaAnimation", formigaAnimation);
   morcego = createSprite(600, 230);
   morcego.addAnimation("morcegoVoando", morcegoAnimation);
-}
+}  
 
 function draw() {
   background("lightgrey"); 
-  
-  drawSprites();
+  sapo.collide(gramaInvisivel);
+  sapo.velocityY = 0.5;
+  if(keyDown("space") && sapo.y >= 390){
+    sapo.velocityY = -20;
+  }
+  drawSprites();    
 }
 
 
