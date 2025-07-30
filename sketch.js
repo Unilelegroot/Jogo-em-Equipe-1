@@ -38,10 +38,14 @@ function setup() {
   cobra = createSprite(600, 400);
   cobra.addAnimation("cobraAnimation", cobraAnimation);
   cobra.scale = 2;
-  cinos = createSprite(900,100);
+  cinos = createSprite(900,400);
   cinos.addAnimation("cinosAnimation", cinosAnimation);
-  nyjag = createSprite(1200,100);
+  cinos.mirrorX(-1);
+  cinos.scale=2.25;
+  nyjag = createSprite(600,100);
   nyjag.addAnimation("nyjagAnimation",nyjagAnimation);
+  nyjag.scale=0.90;
+  nyjag.mirrorX(-1);
   formiga = createSprite(800, 400);
   formiga.addAnimation("formigaAnimation", formigaAnimation);
   morcego = createSprite(600, 230);
@@ -60,7 +64,17 @@ function draw() {
   if(keyDown("space") && sapo.y >= 390){
     sapo.velocityY = -20;
   }
-  drawSprites();    
+  if(cinos.x>=900){
+    cinos.velocityX=-2;
+    cinos.mirrorX(-1);
+  }
+  if(cinos.x <=100){
+    cinos.velocityX=2;
+    cinos.mirrorX(1);
+  }
+  
+  drawSprites(); 
+text("X: "+mouseX+" /Y: "+mouseY,mouseX,mouseY);
 }
 
 
