@@ -47,9 +47,9 @@ function setup() {
   aranha.addAnimation("aranhaAnimation", aranhaAnimation);
 
   inimigo = createSprite(700, 400);
+  inimigo.addAnimation("formigaAnimation", formigaAnimation);
   inimigo.addAnimation("cobraAnimation", cobraAnimation);
   inimigo.addAnimation("cinosAnimation", cinosAnimation);
-  inimigo.addAnimation("formigaAnimation", formigaAnimation);
   // cinos = createSprite(900,400);
   // cinos.mirrorX(-1);
   // cinos.scale = 2.25;
@@ -117,12 +117,16 @@ function gerarInimigosSolo(){
     //console.log(rand)
     switch(rand){
       case 1: 
-        inimigo.changeAnimation("cobraAnimation", cobraAnimation);
+     inimigo.scale = 0.43
+      inimigo.changeAnimation("cobraAnimation", cobraAnimation);
       break;
       case 2: 
+      inimigo.mirrorX(-1);
+      inimigo.scale = 2.25 
         inimigo.changeAnimation("cinosAnimation", cinosAnimation);
-      break;
+        break;
        case 3: 
+       inimigo.scale = 1.3 
         inimigo.changeAnimation("formigaAnimation", formigaAnimation);
       break;
     }
