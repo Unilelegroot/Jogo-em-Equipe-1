@@ -1,0 +1,12 @@
+1- Arrumar a posição dos inimigos.
+2- Arrumar o tamanho de alguns inimigos e do sapo.
+3- Movimentar os inimigos para a direção contraria da do sapo (todos menos a cobra).
+4- Deixar no infinito a movimentação dos inimigos (exemplo: A cobra vai na direção do sapo e nunca mais volta).
+5- Deixar a aranha parada na árvore e aumentar um pouco ela.
+6- Fazer os inimigos darem dano no sapo.
+7- Fazer uma tela de fim de jogo com o sapo chegando no lago e encontrando muitos sapos.
+8- Fazer uma tela de game over.
+9- Fazer o sapo ter vidas (Exemplo: 5 vidas).
+10- Fazer que quando as vidas acabarem mostrar o game over.
+11- Fazer a aranha se repetir. 7
+12- Criar uma forma do sapo matar os inimigos (pulando em cima, dando linguada ou sei lá)
