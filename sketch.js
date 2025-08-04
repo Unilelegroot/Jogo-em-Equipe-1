@@ -73,6 +73,15 @@ function draw() {
   if (grama.x < -100) {
     grama.x = 710;
   }
+  // movimento zig zag da "jaguatirica"
+  if(nyjag.y<=100){
+    nyjag.velocityX=-2;
+    nyjag.velocityY=2;
+  }
+  if(nyjag.y>=261){
+    nyjag.velocityY=-2;
+    
+  }
   // gravidade no sapo
   sapo.velocityY += 0.8;
   sapo.collide(gramaInvisivel);  
