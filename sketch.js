@@ -8,6 +8,8 @@ var nyjag, nyjagAnimation;
 var formiga, formigaAnimation;
 var morcego, morcegoAnimation;
 var gramaInvisivel;
+var inimigosGroup;
+var inimigos;
 
 
 function preload(){
@@ -41,29 +43,28 @@ function setup() {
   sapo.changeAnimation("correndo");
   sapo.scale = 0.45;
 
-  aranha = createSprite(700, 220);
+  aranha = createSprite((grama.x/2)+100, 220);
   aranha.addAnimation("aranhaAnimation", aranhaAnimation);
 
-  cobra = createSprite(600, 400);
-  cobra.addAnimation("cobraAnimation", cobraAnimation);
-  cobra.scale =0.43;
+  inimigo = createSprite(700, 400);
+  inimigo.addAnimation("cobraAnimation", cobraAnimation);
+  inimigo.addAnimation("cinosAnimation", cinosAnimation);
+  inimigo.addAnimation("formigaAnimation", formigaAnimation);
+  // cinos = createSprite(900,400);
+  // cinos.mirrorX(-1);
+  // cinos.scale = 2.25;
 
-  cinos = createSprite(900,400);
-  cinos.addAnimation("cinosAnimation", cinosAnimation);
-  cinos.mirrorX(-1);
-  cinos.scale = 2.25;
+  // nyjag = createSprite(600,100);
+  // nyjag.addAnimation("nyjagAnimation",nyjagAnimation);
+  // nyjag.scale = 0.90;
+  // nyjag.mirrorX(-1);
 
-  nyjag = createSprite(600,100);
-  nyjag.addAnimation("nyjagAnimation",nyjagAnimation);
-  nyjag.scale = 0.90;
-  nyjag.mirrorX(-1);
+  // formiga = createSprite(800, 400);
+  // formiga.addAnimation("formigaAnimation", formigaAnimation);
+  // formiga.scale = 1.3;
 
-  formiga = createSprite(800, 400);
-  formiga.addAnimation("formigaAnimation", formigaAnimation);
-  formiga.scale = 1.3;
-
-  morcego = createSprite(600, 230);
-  morcego.addAnimation("morcegoVoando", morcegoAnimation);
+  // morcego = createSprite(600, 230);
+  // morcego.addAnimation("morcegoVoando", morcegoAnimation);
 }  
 
 function draw() {
@@ -74,14 +75,14 @@ function draw() {
     grama.x = 710;
   }
   // movimento zig zag da "jaguatirica"
-  if(nyjag.y<=100){
-    nyjag.velocityX=-2;
-    nyjag.velocityY=2;
-  }
-  if(nyjag.y>=261){
-    nyjag.velocityY=-2;
+  // if(nyjag.y<=100){
+  //   nyjag.velocityX=-2;
+  //   nyjag.velocityY=2;
+  // }
+  // if(nyjag.y>=261){
+  //   nyjag.velocityY=-2;
     
-  }
+  // }
   // gravidade no sapo
   sapo.velocityY += 0.8;
   sapo.collide(gramaInvisivel);  
@@ -93,18 +94,37 @@ function draw() {
     sapo.changeAnimation("correndo");
   }
   // movimento dos sprites
-  if (cinos.x >= 900) {
-    cinos.velocityX = -2;
-    cinos.mirrorX(-1);
-  }
-  if (cinos.x <= 100) {
-    cinos.velocityX = 2;
-    cinos.mirrorX(1);
-  }
-  aranha.velocityX = -3.5;
-  cobra.velocityX = -4.2;
+  // if (cinos.x >= 900) {
+  //   cinos.velocityX = -2;
+  //   cinos.mirrorX(-1);
+  // }
+  // if (cinos.x <= 100) {
+  //   cinos.velocityX = 2;
+  //   cinos.mirrorX(1);
+  // }
+  //aranha.x = (grama.x/2)+20;
+  aranha.velocityX = grama.velocityX;
+  // cobra.velocityX = -4.2;
+  gerarInimigosSolo();
   drawSprites();
   text("X: " + mouseX + " / Y: " + mouseY, mouseX, mouseY);
 }
 
-
+function gerarInimigosSolo(){
+  if(frameCount%100==0){
+    //cobra.x = 1440;
+    var rand = Math.round(random(1,3));
+    //console.log(rand)
+    switch(rand){
+      case 1: 
+        inimigo.changeAnimation("cobraAnimation", cobraAnimation);
+      break;
+      case 2: 
+        inimigo.changeAnimation("cinosAnimation", cinosAnimation);
+      break;
+       case 3: 
+        inimigo.changeAnimation("formigaAnimation", formigaAnimation);
+      break;
+    }
+  }
+}
