@@ -1,6 +1,6 @@
 var ceu, ceuImage;
 var grama, gramaImage;
-var sapo, sapoAnimation, sapoAnimationJump;
+var sapo, sapoAnimation, sapoAnimationJump, sapoAnimationDano;
 var aranha, aranhaAnimation;
 var cobra, cobraAnimation;
 var cinos, cinosAnimation;
@@ -10,13 +10,13 @@ var morcego, morcegoAnimation;
 var gramaInvisivel;
 var mosquito, mosquitoAnimation;
 var inimigosGroup;
-var inimigos;
 
 
 function preload() {
   ceuImage = loadImage("./assets/ceu.png");
   sapoAnimationJump = loadAnimation("./assets/sapojump0.png", "./assets/sapojump1.png", "./assets/sapojump2.png", "./assets/sapojump3.png", "./assets/sapojump4.png", "./assets/sapojump5.png", "./assets/sapojump6.png");
-  sapoAnimation = loadAnimation("./assets/saporun0.png", "./assets/saporun1.png", "./assets/saporun2.png", "./assets/saporun3.png");
+  sapoAnimation = loadAnimation("./assets/saporun0.png", "./assets/saporun1.png", "./assets/saporun2.png", "./assets/saporun3.png", "./assets/saporun4.png", "./assets/saporun5.png", "./assets/saporun6.png");
+  sapoAnimationDano = loadAnimation("./assets/sapodano0.png", "./assets/sapodano1.png");
   cobraAnimation = loadAnimation("./assets/cobra0.png", "./assets/cobra1.png", "./assets/cobra2.png", "./assets/cobra3.png", "./assets/cobra4.png");
   aranhaAnimation = loadAnimation("./assets/aranha0.png", "./assets/aranha1.png", "./assets/aranha2.png", "./assets/aranha3.png");
   cinosAnimation = loadAnimation("./assets/Cinos0.png", "./assets/Cinos1.png", "./assets/Cinos2.png");
@@ -42,27 +42,14 @@ function setup() {
   sapo = createSprite(100, 400);
   sapo.addAnimation("correndo", sapoAnimation);
   sapo.addAnimation("pulando", sapoAnimationJump);
+  sapo.addAnimation("dano", sapoAnimationDano);
   sapo.changeAnimation("correndo");
   sapo.scale = 0.45;
 
   aranha = createSprite((grama.x / 2)+227, 220);
   aranha.addAnimation("aranhaAnimation", aranhaAnimation);
 
-  // cinos = createSprite(900,400);
-  // cinos.mirrorX(-1);
-  // cinos.scale = 2.25;
-
-  // nyjag = createSprite(600,100);
-  // nyjag.addAnimation("nyjagAnimation",nyjagAnimation);
-  // nyjag.scale = 0.90;
-  // nyjag.mirrorX(-1);
-
-  // formiga = createSprite(800, 400);
-  // formiga.addAnimation("formigaAnimation", formigaAnimation);
-  // formiga.scale = 1.3;
-
-  // morcego = createSprite(600, 230);
-  // morcego.addAnimation("morcegoVoando", morcegoAnimation);
+  inimigosGroup = new Group()
 }
 
 function draw() {
@@ -84,6 +71,9 @@ function draw() {
   // gravidade no sapo
   sapo.velocityY += 0.8;
   sapo.collide(gramaInvisivel);
+  if (sapo.isTouching(inimigosGroup)){
+    sapo.visible = false;
+  }
   // pulo
   if (keyDown("space") && sapo.y >= 360) {
     sapo.velocityY = -12;
@@ -91,18 +81,7 @@ function draw() {
   } else if (sapo.y >= 360) {
     sapo.changeAnimation("correndo");
   }
-  // movimento dos sprites
-  // if (cinos.x >= 900) {
-  //   cinos.velocityX = -2;
-  //   cinos.mirrorX(-1);
-  // }
-  // if (cinos.x <= 100) {
-  //   cinos.velocityX = 2;
-  //   cinos.mirrorX(1);
-  // }
-  //aranha.x = (grama.x/2)+20;
   aranha.velocityX = grama.velocityX;
-  // cobra.velocityX = -4.2;
   gerarInimigosSolo();
   gerarInimigosCeu();
   drawSprites();
@@ -131,6 +110,7 @@ function gerarInimigosSolo() {
         inimigo.addAnimation("formigaAnimation", formigaAnimation);
         break;
     }
+    inimigosGroup.add(inimigo);
   }
 }
 function gerarInimigosCeu() {
@@ -147,7 +127,6 @@ function gerarInimigosCeu() {
             inimigo.mirrorX(-1);
         break;
       case 2:
-        
         inimigo.addAnimation("morcegoVoando", morcegoAnimation);
         break;
       case 3:
@@ -156,5 +135,6 @@ function gerarInimigosCeu() {
         inimigo.addAnimation("mosquitoVoando",mosquitoAnimation);
         break;
     }
+    inimigosGroup.add(inimigo);
   }
 }
