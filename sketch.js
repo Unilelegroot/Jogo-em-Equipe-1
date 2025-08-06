@@ -10,6 +10,9 @@ var morcego, morcegoAnimation;
 var gramaInvisivel;
 var mosquito, mosquitoAnimation;
 var inimigosGroup;
+var vidas = 5;
+var score = 0;
+var gameState = "play";
 
 
 function preload() {
@@ -54,6 +57,15 @@ function setup() {
 
 function draw() {
   background("lightgrey");
+  if (gameState = "play"){
+    
+  }
+  if(gameState = "end"){
+
+  }
+  if(gameState = "win"){
+    
+  }
   // movimentação da grama
   grama.velocityX = -3.5;
   if (grama.x < -100) {
@@ -85,6 +97,10 @@ function draw() {
   gerarInimigosSolo();
   gerarInimigosCeu();
   drawSprites();
+  fill("yellow")
+  textSize(16)
+  text("Vidas: " + vidas, 50, 50)
+  text("Score: " + score, 50, 75)
   text("X: " + mouseX + " / Y: " + mouseY, mouseX, mouseY);
 }
 
