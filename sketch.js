@@ -104,14 +104,15 @@ function draw() {
   aranha.velocityX = grama.velocityX;
   // cobra.velocityX = -4.2;
   gerarInimigosSolo();
+  gerarInimigosCeu();
   drawSprites();
   text("X: " + mouseX + " / Y: " + mouseY, mouseX, mouseY);
 }
 
 function gerarInimigosSolo() {
-  var randFrame = Math.round(random(80, 120));
+  var randFrame = random([90, 120,100,150,140]);
   if (frameCount % randFrame == 0) {
-    inimigo = createSprite(width+50, 400);
+    var inimigo = createSprite(width+50, 400);
     inimigo.velocityX = -4.2;
     var rand = Math.round(random(1, 3));
     //console.log(rand)
@@ -128,6 +129,31 @@ function gerarInimigosSolo() {
       case 3:
         inimigo.scale = 1.3
         inimigo.addAnimation("formigaAnimation", formigaAnimation);
+        break;
+    }
+  }
+}
+function gerarInimigosCeu() {
+  var randFrame = random([90, 120,100,150,140]);
+  if (frameCount % randFrame == 0) {
+    var inimigo = createSprite(width+50, random(120,330));
+    inimigo.velocityX = -4.2;
+    var rand = Math.round(random(1, 3));
+    //console.log(rand)
+    switch (rand) {
+      case 1:
+           inimigo.addAnimation("nyjagAnimation",nyjagAnimation);
+            inimigo.scale = 0.90;
+            inimigo.mirrorX(-1);
+        break;
+      case 2:
+        
+        inimigo.addAnimation("morcegoVoando", morcegoAnimation);
+        break;
+      case 3:
+        inimigo.scale = 1.3;
+        inimigo.mirrorX(-1);
+        inimigo.addAnimation("mosquitoVoando",mosquitoAnimation);
         break;
     }
   }
