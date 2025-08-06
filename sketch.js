@@ -49,7 +49,7 @@ function setup() {
   sapo.changeAnimation("correndo");
   sapo.scale = 0.45;
 
-  aranha = createSprite((grama.x / 2)+227, 220);
+  aranha = createSprite((grama.x / 2) + 227, 220);
   aranha.addAnimation("aranhaAnimation", aranhaAnimation);
 
   inimigosGroup = new Group()
@@ -57,20 +57,39 @@ function setup() {
 
 function draw() {
   background("lightgrey");
-  if (gameState = "play"){
-    
+  if (gameState = "play") {
+    grama.velocityX = -3.5;
+    if (grama.x < -100) {
+      grama.x = 710;
+    }
+    aranha.velocityX = grama.velocityX;
+    if (sapo.isTouching(inimigosGroup)) {
+      vidas--;
+      sapo.changeAnimation("dano", sapoAnimationDano)
+      inimigosGroup.destroyEach()
+      sapo.y = 100;
+    }
+    if (keyDown("space") && sapo.y >= 360) {
+      sapo.velocityY = -12;
+      sapo.changeAnimation("pulando");
+    } else if (sapo.y >= 360) {
+      sapo.changeAnimation("correndo");
+    }
+    if(vidas <= 0){
+      gameState = "end";
+    }
+    score = score + Math.round(getFrameRate()/60);
+    if (score >= 600 && vida > 0){
+      gameState = "win";
+    }
   }
-  if(gameState = "end"){
+  if (gameState = "end") {
 
   }
-  if(gameState = "win"){
-    
+  if (gameState = "win") {
+
   }
-  // movimentação da grama
-  grama.velocityX = -3.5;
-  if (grama.x < -100) {
-    grama.x = 710;
-  }
+
   // movimento zig zag da "jaguatirica"
   // if(nyjag.y<=100){
   //   nyjag.velocityX=-2;
@@ -78,25 +97,12 @@ function draw() {
   // }
   // if(nyjag.y>=261){
   //   nyjag.velocityY=-2;
-
   // }
   // gravidade no sapo
+
   sapo.velocityY += 0.8;
   sapo.collide(gramaInvisivel);
-  if (sapo.isTouching(inimigosGroup)){
-    vidas--;
-    sapo.changeAnimation("dano",sapoAnimationDano)
-    inimigosGroup.destroyEach()
-    sapo.y =100;
-  }
-  // pulo
-  if (keyDown("space") && sapo.y >= 360) {
-    sapo.velocityY = -12;
-    sapo.changeAnimation("pulando");
-  } else if (sapo.y >= 360) {
-    sapo.changeAnimation("correndo");
-  }
-  aranha.velocityX = grama.velocityX;
+
   gerarInimigosSolo();
   gerarInimigosCeu();
   drawSprites();
@@ -108,9 +114,9 @@ function draw() {
 }
 
 function gerarInimigosSolo() {
-  var randFrame = random([90, 120,100,150,140]);
+  var randFrame = random([90, 120, 100, 150, 140]);
   if (frameCount % randFrame == 0) {
-    var inimigo = createSprite(width+50, 400);
+    var inimigo = createSprite(width + 50, 400);
     inimigo.velocityX = -4.2;
     var rand = Math.round(random(1, 3));
     //console.log(rand)
@@ -133,17 +139,17 @@ function gerarInimigosSolo() {
   }
 }
 function gerarInimigosCeu() {
-  var randFrame = random([90, 120,100,150,140]);
+  var randFrame = random([90, 120, 100, 150, 140]);
   if (frameCount % randFrame == 0) {
-    var inimigo = createSprite(width+50, random(120,330));
+    var inimigo = createSprite(width + 50, random(120, 330));
     inimigo.velocityX = -4.2;
     var rand = Math.round(random(1, 3));
     //console.log(rand)
     switch (rand) {
       case 1:
-           inimigo.addAnimation("nyjagAnimation",nyjagAnimation);
-            inimigo.scale = 0.90;
-            inimigo.mirrorX(-1);
+        inimigo.addAnimation("nyjagAnimation", nyjagAnimation);
+        inimigo.scale = 0.90;
+        inimigo.mirrorX(-1);
         break;
       case 2:
         inimigo.addAnimation("morcegoVoando", morcegoAnimation);
@@ -151,7 +157,7 @@ function gerarInimigosCeu() {
       case 3:
         inimigo.scale = 1.3;
         inimigo.mirrorX(-1);
-        inimigo.addAnimation("mosquitoVoando",mosquitoAnimation);
+        inimigo.addAnimation("mosquitoVoando", mosquitoAnimation);
         break;
     }
     inimigosGroup.add(inimigo);
