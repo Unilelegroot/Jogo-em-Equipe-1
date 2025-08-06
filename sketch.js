@@ -8,6 +8,7 @@ var nyjag, nyjagAnimation;
 var formiga, formigaAnimation;
 var morcego, morcegoAnimation;
 var gramaInvisivel;
+var mosquito, mosquitoAnimation;
 var inimigosGroup;
 var inimigos;
 
@@ -23,6 +24,7 @@ function preload() {
   formigaAnimation = loadAnimation("./assets/formiga0.png", "./assets/formiga1.png", "./assets/formiga2.png", "./assets/formiga3.png", "./assets/formiga4.png", "./assets/formiga5.png");
   gramaImage = loadImage("./assets/grama.png");
   morcegoAnimation = loadAnimation("./assets/morcego1.png", "./assets/morcego2.png", "/assets/morcego3.png");
+  mosquitoAnimation = loadAnimation("./assets/mosquito1.png", "./assets/mosquito2.png", "./assets/mosquito3.png");
 }
 
 function setup() {
