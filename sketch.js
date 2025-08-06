@@ -84,7 +84,10 @@ function draw() {
   sapo.velocityY += 0.8;
   sapo.collide(gramaInvisivel);
   if (sapo.isTouching(inimigosGroup)){
-    sapo.visible = false;
+    vidas--;
+    sapo.changeAnimation("dano",sapoAnimationDano)
+    inimigosGroup.destroyEach()
+    sapo.y =100;
   }
   // pulo
   if (keyDown("space") && sapo.y >= 360) {
