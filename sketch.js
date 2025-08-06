@@ -57,10 +57,11 @@ function setup() {
 
 function draw() {
   background("lightgrey");
+  grama.velocityX = -3.5;
   if (gameState = "play") {
-    grama.velocityX = -3.5;
     if (grama.x < -100) {
       grama.x = 710;
+      aranha.x =(grama.x / 2) + 227
     }
     aranha.velocityX = grama.velocityX;
     if (sapo.isTouching(inimigosGroup)) {
@@ -79,12 +80,14 @@ function draw() {
       gameState = "end";
     }
     score = score + Math.round(getFrameRate()/60);
-    if (score >= 600 && vida > 0){
+    if (score >= 600 && vidas > 0){
       gameState = "win";
     }
   }
   if (gameState = "end") {
-
+  //grama.velocityX = 0
+  //inimigosGroup.setVelocityXEach(0)
+  background("black")
   }
   if (gameState = "win") {
 
