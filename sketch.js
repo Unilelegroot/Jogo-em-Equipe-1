@@ -13,6 +13,8 @@ var inimigosGroup;
 var vidas = 5;
 var score = 0;
 var gameState = "play";
+var gameOver
+var gameOverImage
 
 
 function preload() {
@@ -28,9 +30,11 @@ function preload() {
   gramaImage = loadImage("./assets/grama.png");
   morcegoAnimation = loadAnimation("./assets/morcego1.png", "./assets/morcego2.png", "/assets/morcego3.png");
   mosquitoAnimation = loadAnimation("./assets/mosquito1.png", "./assets/mosquito2.png", "./assets/mosquito3.png");
+  gameOverImage = loadImage("./assets/game-over.jpg")
 }
 
 function setup() {
+ 
   createCanvas(1420, 500);
 
   ceu = createSprite(600, 100);
@@ -48,11 +52,17 @@ function setup() {
   sapo.addAnimation("dano", sapoAnimationDano);
   sapo.changeAnimation("correndo");
   sapo.scale = 0.45;
-
+  sapo.debug=false;
+sapo.setCollider("circle",0,50,50)
   aranha = createSprite((grama.x / 2) + 227, 220);
   aranha.addAnimation("aranhaAnimation", aranhaAnimation);
 
   inimigosGroup = new Group()
+  gameOver = createSprite(width/2,height/2)
+  gameOver.scale = 1.2
+gameOver.addImage(gameOverImage)
+gameOver.depth = 2
+gameover
 }
 
 function draw() {
