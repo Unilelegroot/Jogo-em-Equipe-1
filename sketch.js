@@ -15,6 +15,7 @@ var score = 0;
 var gameState = "play";
 var gameOver
 var gameOverImage
+var gramaWin
 
 
 function preload() {
@@ -31,6 +32,7 @@ function preload() {
   morcegoAnimation = loadAnimation("./assets/morcego1.png", "./assets/morcego2.png", "/assets/morcego3.png");
   mosquitoAnimation = loadAnimation("./assets/mosquito1.png", "./assets/mosquito2.png", "./assets/mosquito3.png");
   gameOverImage = loadImage("./assets/game-over.jpg")
+  gramaWin = loadImage("./assets/end.jpg")
 }
 
 function setup() {
@@ -41,6 +43,7 @@ function setup() {
   ceu.addImage(ceuImage);
 
   grama = createSprite(710, 250);
+  grama.addImage(gramaWin)
   grama.addImage(gramaImage);
 
   gramaInvisivel = createSprite(710, 450, 1420, 40);
@@ -62,13 +65,13 @@ sapo.setCollider("circle",0,50,50)
   gameOver.scale = 1.2
 gameOver.addImage(gameOverImage)
 gameOver.depth = 2
-gameover
+gameOver.visible=false
 }
 
 function draw() {
   background("lightgrey");
   grama.velocityX = -3.5;
-  if (gameState = "play") {
+  if (gameState == "play") {
     
     if (grama.x < -100) {
       grama.x = 710;
@@ -95,17 +98,27 @@ function draw() {
       gameState = "end";
     }
     score = score + Math.round(getFrameRate()/60);
-    if (score >= 600 && vidas > 0){
+    if (score >= 1200 && vidas > 0){
       gameState = "win";
     }
   }
-  if (gameState = "end") {
-  //grama.velocityX = 0
-  //inimigosGroup.setVelocityXEach(0)
+  if (gameState == "end") {
+  grama.velocityX = 0
+  inimigosGroup.destroyEach()
+  sapo.destroy()
+  aranha.destroy()
   background("black")
+  gameOver.visible=true
   }
-  if (gameState = "win") {
-
+  if (gameState == "win") {
+      grama.addImage(gramaWin)
+      grama.scale=2.5
+      grama.velocityX=0
+      inimigosGroup.destroyEach()
+      aranha.destroy()
+      grama.x=-180
+      sapo.x=941
+      sapo.y=422
   }
 
   // movimento zig zag da "jaguatirica"
@@ -132,7 +145,7 @@ function draw() {
 }
 
 function gerarInimigosSolo() {
-  var randFrame = random([90, 120, 100, 150, 140]);
+  var randFrame = random([120, 100, 150, 140]);
   if (frameCount % randFrame == 0) {
     var inimigo = createSprite(width + 50, 400);
     inimigo.velocityX = -4.2;
