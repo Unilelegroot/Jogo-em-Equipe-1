@@ -59,21 +59,26 @@ function draw() {
   background("lightgrey");
   grama.velocityX = -3.5;
   if (gameState = "play") {
+    
     if (grama.x < -100) {
       grama.x = 710;
       aranha.x =(grama.x / 2) + 227
     }
     aranha.velocityX = grama.velocityX;
     if (sapo.isTouching(inimigosGroup)) {
-      vidas--;
-      sapo.changeAnimation("dano", sapoAnimationDano)
       inimigosGroup.destroyEach()
-      sapo.y = 100;
+      sapo.changeAnimation("dano", sapoAnimationDano)
+      setTimeout(() => {
+        vidas--;
+        sapo.y = 100;
+      }, 1000);
+      
     }
     if (keyDown("space") && sapo.y >= 360) {
       sapo.velocityY = -12;
       sapo.changeAnimation("pulando");
-    } else if (sapo.y >= 360) {
+    } 
+    if (sapo.y >= 360) {
       sapo.changeAnimation("correndo");
     }
     if(vidas <= 0){
